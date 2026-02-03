@@ -1,0 +1,122 @@
+{% load static %}
+{% load jalali_filters %}
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حسابداری نئونی</title>
+    <!-- لود کردن فونت فارسی وزیر -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet"
+          type="text/css"/>
+
+    <link rel="stylesheet" href="{% static 'factor/css/style.css' %}">
+
+</head>
+<body>
+
+<!-- هدر سایت -->
+<header>
+    <h1>لیست مخارج نئونی</h1>
+    <button class="btn-add" onclick="openAddModal()">
+        <span>+</span> ثبت جدید
+    </button>
+</header>
+
+<!-- کانتینر اصلی جدول -->
+<div class="container">
+    <div class="table-container">
+        <table id="expenseTable">
+            <thead>
+            <tr>
+                <th style="width: 60px;">#</th>
+                <th>عنوان خرید</th>
+                <th>تاریخ</th>
+                <th>مبلغ (تومان)</th>
+                <th style="width: 80px;">حذف</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if not factors %}
+                <tr id="empty-msg">
+                    <td colspan="5">هنوز خریدی ثبت نشده است...</td>
+                </tr>
+            {% else %}
+            {% for factor in factors %}
+                <tr style="animation: 0.5s ease 0s 1 normal none running fadeIn;">
+                    <td style="color: var(--text-muted);">{{ factor.fid }}</td>
+                    <td><strong style="color:white; font-size:1.05rem;">{{ factor.title }}</strong></td>
+                    <td style="color: #ccc;">{{ factor.date|date:"Y/m/d" }}</td>
+                    <td class="price-col">{{ factor.price }}</td>
+                    <td>
+                        <form method="post" action="{% url 'removeFactorItem' %}">
+                            {% csrf_token %}
+                            <input name="factorID" type="hidden" value="{{ factor.fid }}">
+                            <button type="submit" class="btn-delete">✕</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            {% endif %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="3" style="text-align: left; padding-left: 20px;">جمع کل مخارج:</td>
+                <td id="totalAmountDisplay" class="price-col">{{ total_price }}</td>
+                <td></td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<!-- پاپ‌آپ ثبت خرید -->
+<div class="modal-overlay" id="addModal">
+    <div class="modal">
+        <form method="post" action="{% url 'addFactorItem' %}">
+            {% csrf_token %}
+            <h2>ثبت هزینه جدید</h2>
+
+            <div class="form-group">
+                <label>عنوان خرید:</label>
+                <input type="text" id="pTitle" name="factorTitle" placeholder="مثلا: ناهار پرسنل" autocomplete="off">
+            </div>
+
+            <div class="form-group">
+                <label>تاریخ خرید:</label>
+                <input type="text" name="factorDate" placeholder="1402-11-11" value="{{ today_date }}">
+            </div>
+
+            <div class="form-group">
+                <label>مبلغ (تومان):</label>
+                <!-- تغییر تایپ به text برای امکان گذاشتن ویرگول -->
+                <input type="text" id="pPrice" name="factorPrice" placeholder="مثلا: 100,000" oninput="formatInput(this)">
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="btn-cancel" onclick="closeModal()">بیخیال</button>
+                <button type="submit" class="btn-submit">ثبت کن</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="{% static 'factor/js/script.js' %}"></script>
+
+<script>
+    document.getElementById("totalAmountDisplay").innerHTML = formatNumber('{{ total_price }}');
+    let price_col = document.querySelectorAll(".price-col");
+
+    function onLoad() {
+        for(let xs = 0;xs < price_col.length;xs++) {
+            price_col[xs].innerHTML = formatNumber(`${price_col[xs].innerHTML}`);
+        }
+        console.log('mobin');
+    }
+
+    onLoad();
+</script>
+
+</body>
+</html>

@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-huiv(jcmsn*6qd3*63bka2ci%!=07r0d!uhwu$i)2%i0l3!ij5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '192.168.1.102',
+    'localhost',
+    '127.0.0.1',
+]
 
 
 # Application definition
@@ -37,7 +41,34 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # 'jalali_date',
+    'django_jalali',
+    'jdatetime',
+
+    'hrm',
+    'factor'
 ]
+
+JALALI_DATE_DEFAULTS = {
+   # if change it to true then all dates of the list_display will convert to the Jalali.
+   'LIST_DISPLAY_AUTO_CONVERT': False,
+   'Strftime': {
+        'date': '%y/%m/%d',
+        'datetime': '%H:%M:%S _ %y/%m/%d',
+        'time': '%H:%M:%S',
+    },
+    'Static': {
+        'js': [
+            'admin/js/django_jalali.min.js',
+        ],
+        'css': {
+            'all': [
+              'admin/css/django_jalali.min.css',
+            ]
+        }
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -54,7 +85,7 @@ ROOT_URLCONF = 'internal.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -107,7 +138,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tehran'
+TIME_INPUT_FORMATS = [
+    '%H:%M',
+]
+
 
 USE_I18N = True
 
@@ -117,4 +152,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',   # GLOBAL static
+]
+STATIC_ROOT = BASE_DIR / 'staticfiles'

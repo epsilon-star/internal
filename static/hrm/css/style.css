@@ -1,0 +1,368 @@
+/* --- تنظیمات متغیرهای رنگی (تم دارک نئون) --- */
+:root {
+    --bg-color: #050505; /* پس زمینه مشکی عمیق */
+    --card-bg: #13131f; /* رنگ کارت‌ها */
+    --primary-neon: #00f3ff; /* آبی نئونی */
+    --secondary-neon: #bc13fe; /* بنفش نئونی */
+    --failed-neon: #ffc400;
+    --success-neon: #0aff60; /* سبز نئونی */
+    --danger-neon: #ff0055; /* قرمز نئونی */
+    --text-main: #ffffff;
+    --text-muted: #a0a0a0;
+    --border-color: #2d2d3a;
+}
+
+body {
+    font-family: 'Vazirmatn', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* پترن ریز برای بک‌گراند */
+    background-image: radial-gradient(#1a1a2e 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+
+/* --- هدر --- */
+header {
+    background-color: rgba(19, 19, 31, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0, 243, 255, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+h1 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: var(--text-main);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+h1::before {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    background: var(--primary-neon);
+    border-radius: 50%;
+    box-shadow: 0 0 15px var(--primary-neon);
+}
+
+/* دکمه اصلی */
+.btn-add {
+    background: transparent;
+    color: var(--primary-neon);
+    border: 2px solid var(--primary-neon);
+    padding: 10px 25px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+}
+
+.btn-add:hover {
+    background: var(--primary-neon);
+    color: #000;
+    box-shadow: 0 0 25px rgba(0, 243, 255, 0.6);
+    transform: translateY(-2px);
+}
+
+/* --- کانتینر و جدول --- */
+.container {
+    padding: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.table-container {
+    background: var(--card-bg);
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    overflow: hidden; /* برای گرد بودن گوشه‌ها */
+    position: relative;
+}
+
+/* افکت نئون دور جدول */
+.table-container::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; width: 100%; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--secondary-neon), transparent);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+th {
+    background-color: #1a1a29;
+    color: var(--primary-neon);
+    padding: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+td {
+    padding: 18px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-main);
+    transition: background 0.3s;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr:hover td {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* دکمه خروج جدول */
+.btn-exit {
+    background: rgba(255, 0, 85, 0.1);
+    color: var(--danger-neon);
+    border: 1px solid var(--danger-neon);
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.85rem;
+    transition: all 0.3s;
+}
+
+.btn-exit:hover {
+    background: var(--danger-neon);
+    color: white;
+    box-shadow: 0 0 15px var(--danger-neon);
+}
+
+.btn-exit:disabled {
+    border-color: #555;
+    background: transparent;
+    color: #555;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+.btn-exit-closed {
+    border-color: rgb(51, 51, 51); color: rgb(85, 85, 85);
+}
+
+/* بج وضعیت */
+.status-badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+}
+
+.status-in {
+    border: 1px solid var(--primary-neon);
+    color: var(--primary-neon);
+    box-shadow: 0 0 5px rgba(0, 243, 255, 0.3) inset;
+}
+
+.status-ok {
+    border: 1px solid var(--success-neon);
+    color: var(--success-neon);
+    background-color: rgba(10, 255, 96, 0.1);
+}
+
+.status-late {
+    border: 1px solid var(--failed-neon);
+    color: var(--failed-neon);
+    transition-duration: 0.4s;
+    box-shadow: 0 0 5px rgba(255, 196, 0, 0.5) inset;
+}
+.status-late:hover {
+    content: "کلیک کنید";
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.status-out {
+    border: 1px solid var(--success-neon);
+    color: var(--success-neon);
+    background-color: rgba(10, 255, 96, 0.1);
+    box-shadow: 0 0 10px rgba(10, 255, 96, 0.2);
+}
+
+/* --- مودال (پاپ آپ) --- */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+.modal {
+    background: rgba(30, 30, 40, 0.95);
+    padding: 2.5rem;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 420px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.8),
+                0 0 20px rgba(188, 19, 254, 0.2); /* سایه بنفش */
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-overlay.active .modal {
+    transform: scale(1);
+}
+
+.modal h2 {
+    margin-top: 0;
+    margin-bottom: 2rem;
+    font-size: 1.3rem;
+    color: var(--text-main);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: right;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: var(--primary-neon);
+}
+
+/* استایل اینپوت‌ها و سلکت‌ها */
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    background: #0f0f16;
+    border: 1px solid #333;
+    border-radius: 10px;
+    color: #fff;
+    font-family: inherit;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: all 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--secondary-neon);
+    box-shadow: 0 0 15px rgba(188, 19, 254, 0.3);
+}
+
+/* استایل خاص برای Select Option ها */
+option {
+    background-color: #1a1a29;
+    color: white;
+    padding: 10px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn-submit {
+    background: linear-gradient(45deg, var(--secondary-neon), #9013fe);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: inherit;
+    flex: 1;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(188, 19, 254, 0.4);
+    transition: transform 0.2s;
+}
+
+.btn-submit-ex {
+    background: var(&#45;&#45;danger-neon);
+    box-shadow: 0 5px 15px rgba(255, 0, 85, 0.4);
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(188, 19, 254, 0.6);
+}
+
+.btn-cancel {
+    background: transparent;
+    color: #aaa;
+    border: 1px solid #444;
+    padding: 12px 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.3s;
+}
+
+.btn-cancel:hover {
+    border-color: #fff;
+    color: #fff;
+}
+
+/* استایل متن خالی */
+#empty-msg td {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.lateCheck {
+    accent-color: var(--secondary-neon);
+}
+.lateCheck:focus {
+    border: 0px solid transparent !important;
+    border-color: transparent !important;
+    box-shadow: 0 0 0px 0px transparent !important;
+}
