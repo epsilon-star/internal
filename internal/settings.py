@@ -116,7 +116,7 @@ WSGI_APPLICATION = 'internal.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'HOST': 'localhost',
+        'HOST': '127.0.0.1',
         'NAME': 'jannet',
         'USER': 'root',
         'PASSWORD': ''
