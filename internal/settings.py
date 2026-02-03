@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'panel.mobinbaratian.ir'
     # '192.168.1.102',
+    '51.161.30.148',
     'localhost',
     '127.0.0.1',
 ]
