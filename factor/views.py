@@ -37,7 +37,7 @@ def home(request):
         })
         total_price += fat.price
 
-    fas.sort(key=lambda x:x["date"],reverse=True)
+    fas.sort(key=lambda x:(x["date"],x["fid"]),reverse=True)
 
     datas = {
         'today_date': jdatetime.date.today(),
