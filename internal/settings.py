@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-huiv(jcmsn*6qd3*63bka2ci%!=07r0d!uhwu$i)2%i0l3!ij5
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '192.168.1.102',
+    'panel.mobinbaratian.ir'
+    # '192.168.1.102',
     'localhost',
     '127.0.0.1',
 ]
