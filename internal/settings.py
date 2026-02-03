@@ -118,8 +118,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'HOST': '127.0.0.1',
         'NAME': 'jannet',
-        'USER': 'root',
-        'PASSWORD': ''
+        'USER': 'jannet',
+        'PASSWORD': 'change2025@#'
     }
 }
 
