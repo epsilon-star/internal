@@ -2,6 +2,12 @@ from django.http import JsonResponse
 from django.shortcuts import render,redirect
 import math
 
+from django.contrib.auth import authenticate
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.authtoken.models import Token
+
 from . import models
 
 import jdatetime
@@ -75,3 +81,39 @@ def home(request):
     }
 
     return render(request,'hrm/index.html',datas)
+
+
+@api_view(["POST"])
+def login_view(request):
+    username = request.data.get("username")
+    password = request.data.get("password")
+
+    if not username or not password:
+        return JsonResponse(
+            {"error": "Username and password required"},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    # user = authenticate(username=username, password=password)
+    try:
+        user = models.Employee.objects.get(username=username,password=password)
+    except:
+        user = None
+
+    if user is None:
+        return JsonResponse(
+            {"error": "Invalid credentials"},
+            status=status.HTTP_401_UNAUTHORIZED
+        )
+
+    # token, _ = Token.objects.create(user=user)
+    token = "asdinabisdivuiasiodjpkl"
+
+    return JsonResponse({
+        "token": token,
+        "user": {
+            "id": user.eid,
+            "username": user.username,
+            "is_staff": True if user.e_user.name == 'founder' or user.e_user.name == 'management' else False,
+        }
+    })

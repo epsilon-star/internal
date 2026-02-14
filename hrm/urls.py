@@ -7,5 +7,7 @@ urlpatterns = [
     path('enter/',views.addEnterTime,name='addEnterTime'),
     path('exit/',views.addExitTime,name='addExitTime'),
     path('late/',views.editLateAccept,name='editLateAccept'),
+
+    path('login/',views.login_view,name='hrm_login'),
     # path('test',views.test,name='test'),
 ]

@@ -12,9 +12,10 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 
+import socket
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
@@ -30,9 +31,9 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
 
-
     # '51.161.30.148',
-    # '192.168.1.102',
+    '192.168.1.106',
+    str(socket.gethostbyname(socket.gethostname()))
 ]
 
 USE_X_FORWARDED_HOST = True
@@ -52,6 +53,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    "rest_framework",
+    "rest_framework.authtoken",
+    "corsheaders",
+
     # 'jalali_date',
     'django_jalali',
     'jdatetime',
@@ -61,9 +66,9 @@ INSTALLED_APPS = [
 ]
 
 JALALI_DATE_DEFAULTS = {
-   # if change it to true then all dates of the list_display will convert to the Jalali.
-   'LIST_DISPLAY_AUTO_CONVERT': False,
-   'Strftime': {
+    # if change it to true then all dates of the list_display will convert to the Jalali.
+    'LIST_DISPLAY_AUTO_CONVERT': False,
+    'Strftime': {
         'date': '%y/%m/%d',
         'datetime': '%H:%M:%S _ %y/%m/%d',
         'time': '%H:%M:%S',
@@ -74,7 +79,7 @@ JALALI_DATE_DEFAULTS = {
         ],
         'css': {
             'all': [
-              'admin/css/django_jalali.min.css',
+                'admin/css/django_jalali.min.css',
             ]
         }
     },
@@ -88,9 +93,21 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = 'internal.urls'
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
+
+CORS_ALLOW_HEADERS = [
+    "authorization",
+    "content-type",
+]
 
 TEMPLATES = [
     {
@@ -109,7 +126,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'internal.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
@@ -122,7 +138,6 @@ DATABASES = {
         'PASSWORD': 'change2025@#'
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
@@ -142,7 +157,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
@@ -153,19 +167,16 @@ TIME_INPUT_FORMATS = [
     '%H:%M',
 ]
 
-
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 
-
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',   # GLOBAL static
+    BASE_DIR / 'static',  # GLOBAL static
 ]
 STATIC_ROOT = BASE_DIR / 'staticfiles'
